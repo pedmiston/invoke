@@ -70,6 +70,12 @@ class Program(object):
                 help="Set default value of run()'s 'hide' kwarg.",
             ),
             Argument(
+                names=('list', 'l'),
+                kind=bool,
+                default=False,
+                help="List available tasks."
+            ),
+            Argument(
                 names=('pty', 'p'),
                 kind=bool,
                 default=False,
@@ -103,12 +109,6 @@ class Program(object):
             Argument(
                 names=('collection', 'c'),
                 help="Specify collection name to load."
-            ),
-            Argument(
-                names=('list', 'l'),
-                kind=bool,
-                default=False,
-                help="List available tasks."
             ),
             Argument(
                 names=('no-dedupe',),
@@ -235,7 +235,7 @@ class Program(object):
         if self.args.echo.value:
             run['echo'] = True
         tasks = {}
-        if self.args['no-dedupe'].value:
+        if 'no-dedupe' in self.args and self.args['no-dedupe'].value:
             tasks['dedupe'] = False
         overrides = {'run': run, 'tasks': tasks}
         # Stand up config object
